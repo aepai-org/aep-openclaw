@@ -1,13 +1,25 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const packageRoot = dirname(dirname(fileURLToPath(import.meta.url)));
-const repositoryRoot = dirname(dirname(packageRoot));
-const openclawCli = join(repositoryRoot, "node_modules", "openclaw", "openclaw.mjs");
+function resolveOpenClawCli(startDirectory) {
+  let currentDirectory = startDirectory;
+  while (true) {
+    const candidate = join(currentDirectory, "node_modules", "openclaw", "openclaw.mjs");
+    if (existsSync(candidate)) return candidate;
+    const parentDirectory = dirname(currentDirectory);
+    if (parentDirectory === currentDirectory) {
+      throw new Error("Unable to locate the installed OpenClaw CLI");
+    }
+    currentDirectory = parentDirectory;
+  }
+}
+
+const openclawCli = resolveOpenClawCli(packageRoot);
 const npmCli = process.env.npm_execpath;
 if (!npmCli) throw new Error("npm_execpath is required for package validation");
 const validationRoot = mkdtempSync(join(tmpdir(), "aep-openclaw-validation-"));
@@ -27,19 +39,19 @@ try {
   execFileSync(
     process.execPath,
     [openclawCli, "plugins", "install", `npm-pack:${tarball}`, "--force"],
-    { cwd: repositoryRoot, env: environment, stdio: "ignore" },
+    { cwd: packageRoot, env: environment, stdio: "ignore" },
   );
   const inspection = JSON.parse(
     execFileSync(
       process.execPath,
       [openclawCli, "plugins", "inspect", "aep", "--runtime", "--json"],
-      { cwd: repositoryRoot, env: environment, encoding: "utf8" },
+      { cwd: packageRoot, env: environment, encoding: "utf8" },
     ),
   );
   const help = execFileSync(
     process.execPath,
     [openclawCli, "connect", "--help"],
-    { cwd: repositoryRoot, env: environment, encoding: "utf8" },
+    { cwd: packageRoot, env: environment, encoding: "utf8" },
   );
 
   assert.equal(inspection.plugin.status, "loaded");
