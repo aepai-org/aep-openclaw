@@ -1,4 +1,4 @@
-≠rá^—f•ñÿ¶{MÏy 'v√Æ∂õ≠import assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";

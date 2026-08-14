@@ -1,4 +1,4 @@
-≠rá^—f•ñÿ¶{MÏy 'v√Æ∂õ≠import type { JsonObject } from "./types.js";
+import type { JsonObject } from "./types.js";
 import {
   validateCredentialTransportUrl,
   type CredentialTransportOptions,

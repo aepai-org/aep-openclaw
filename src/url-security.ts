@@ -1,4 +1,4 @@
-≠rá^—f•ñÿ¶{N,y 'v√Æ∂õ≠export const HTTPS_REQUIRED = "HTTPS_REQUIRED" as const;
+export const HTTPS_REQUIRED = "HTTPS_REQUIRED" as const;
 
 export type CredentialTransportOptions = {
   allowInsecureLocalhost?: boolean;

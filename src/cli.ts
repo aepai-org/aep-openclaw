@@ -1,4 +1,4 @@
-≠rá^—f•ñÿ¶{MÏy 'v√Æ∂õ≠import { connectOpenClaw } from "./connector.js";
+import { connectOpenClaw } from "./connector.js";
 import { AEPClient } from "./client.js";
 import type { CapabilityBinding, OpenClawConnectInput } from "./types.js";
 

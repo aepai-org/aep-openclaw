@@ -1,4 +1,4 @@
-≠rá^—f•ñÿ¶{N,y 'v√Æ∂õ≠# AEP for OpenClaw
+# AEP for OpenClaw
 
 Official OpenClaw Connector plugin from **AEP AI**.
 

@@ -1,4 +1,4 @@
-≠rá^—f•ñÿ¶{MÏy 'v√Æ∂õ≠import type { AEPTask, JsonObject, OpenClawResult, OpenClawTask } from "./types.js";
+import type { AEPTask, JsonObject, OpenClawResult, OpenClawTask } from "./types.js";
 
 export function taskToOpenClaw(task: AEPTask): OpenClawTask {
   if (!task.id || !task.connectorSessionId || !task.description) {

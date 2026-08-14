@@ -1,4 +1,4 @@
-≠rá^—f•ñÿ¶{MÏy 'v√Æ∂õ≠/** Credential storage and redaction for the OpenClaw product boundary. */
+/** Credential storage and redaction for the OpenClaw product boundary. */
 
 export const MASKED_CREDENTIAL = "***masked***";
 
