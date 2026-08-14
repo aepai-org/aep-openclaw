@@ -1,4 +1,4 @@
-import {
+≠rá^—f•ñÿ¶{MÏy 'v√Æ∂õ≠import {
   definePluginEntry,
   type OpenClawPluginDefinition,
 } from "openclaw/plugin-sdk/plugin-entry";

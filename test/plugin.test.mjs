@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+≠rá^—f•ñÿ¶{MÏy 'v√Æ∂õ≠import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import test from "node:test";

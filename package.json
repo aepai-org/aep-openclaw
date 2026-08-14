@@ -1,0 +1,57 @@
+≠rá^—f•ñÿ¶{N,y 'v√Æ∂õ≠{
+  "name": "aep-openclaw-plugin",
+  "version": "0.1.0",
+  "description": "OpenClaw plugin for connecting an existing runtime to AEP",
+  "license": "Apache-2.0",
+  "author": "AEP AI <opensource@aepai.org> (https://aepai.org)",
+  "homepage": "https://aepai.org",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aepai-org/aep-openclaw.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aepai-org/aep-openclaw/issues"
+  },
+  "keywords": ["aep", "ai-agents", "openclaw", "plugin", "developer-preview"],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "openclaw.plugin.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test test/*.test.mjs && node scripts/validate-runtime.mjs"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.7.2-beta.6"
+  },
+  "peerDependenciesMeta": {
+    "openclaw": {
+      "optional": true
+    }
+  },
+  "openclaw": {
+    "extensions": [
+      "./dist/index.js"
+    ],
+    "compat": {
+      "pluginApi": ">=2026.7.2-beta.6",
+      "minGatewayVersion": "2026.7.2-beta.6"
+    },
+    "build": {
+      "openclawVersion": "2026.7.2-beta.6",
+      "pluginSdkVersion": "2026.7.2-beta.6"
+    }
+  },
+  "engines": {
+    "node": ">=22.22.3"
+  },
+  "devDependencies": {
+    "openclaw": "2026.7.2-beta.6",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,4 +1,4 @@
-export type JsonObject = Record<string, unknown>;
+≠rá^—f•ñÿ¶{N,y 'v√Æ∂õ≠export type JsonObject = Record<string, unknown>;
 
 export type CapabilityBinding = {
   externalCapability: string;

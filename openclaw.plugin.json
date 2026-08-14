@@ -1,68 +1,47 @@
-{
+­r‡^Ñf¥–Ø¦{N,yÊ'vÃ®¶›­{
   "id": "aep",
   "name": "AEP Runtime Connector",
   "description": "Connects an existing OpenClaw Agent to the AEP network.",
   "version": "0.1.0",
   "contracts": {
- â€¦4644 tokens truncatedâ€¦al", "password", "secret", "seed",
-    "signature", "token",
-  ].includes(word)) || words.some((word, index) =>
-    (word === "api" || word === "private") && words[index + 1] === "key");
-}
-
-export class SecretValue {
-  readonly #value: string;
-
-  constructor(value: string) {
-    const normalized = value.trim();
-    if (!normalized) throw new Error("AEP_API_KEY is required");
-    this.#value = normalized;
-    Object.freeze(this);
+    "tools": ["aep_task_bridge", "aep_result_bridge"]
+  },
+  "activation": {
+    "onStartup": true
+  },
+  "setup": {
+    "providers": [
+      {
+        "id": "aep",
+        "envVars": ["AEP_API_KEY"]
+      }
+    ]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "baseUrl": { "type": "string", "format": "uri" },
+      "allowInsecureLocalhost": { "type": "boolean", "default": false },
+      "agentId": { "type": "string" },
+      "connectorId": { "type": "string" },
+      "connectorSessionId": { "type": "string" }
+    }
+  },
+  "uiHints": {
+    "baseUrl": {
+      "label": "AEP API URL",
+      "placeholder": "https://api.aepai.org"
+    },
+    "allowInsecureLocalhost": {
+      "label": "Allow localhost HTTP (development only)"
+    },
+    "agentId": { "label": "AEP Agent ID" },
+    "connectorId": { "label": "AEP Connector ID" },
+    "connectorSessionId": { "label": "AEP Connector Session ID" }
+  },
+  "toolMetadata": {
+    "aep_task_bridge": { "optional": true },
+    "aep_result_bridge": { "optional": true }
   }
-
-  revealForTransport(): string {
-    return this.#value;
-  }
-
-  toString(): string {
-    return MASKED_CREDENTIAL;
-  }
-
-  toJSON(): string {
-    return MASKED_CREDENTIAL;
-  }
-}
-
-export function redactText(value: string, knownSecrets: readonly string[] = []): string {
-  let redacted = value;
-  const secrets = [...new Set(knownSecrets.filter(Boolean))]
-    .sort((left, right) => right.length - left.length);
-  for (const secret of secrets) redacted = redacted.split(secret).join(MASKED_CREDENTIAL);
-  return redacted
-    .replace(PRIVATE_KEY, MASKED_CREDENTIAL)
-    .replace(AUTHORIZATION, `$1${MASKED_CREDENTIAL}`)
-    .replace(AUTH_SCHEME, `$1${MASKED_CREDENTIAL}`)
-    .replace(AEP_KEY, MASKED_CREDENTIAL)
-    .replace(SECRET_ASSIGNMENT, `$1${MASKED_CREDENTIAL}`);
-}
-
-export function redactValue(
-  value: unknown,
-  options: { key?: string; knownSecrets?: readonly string[]; depth?: number } = {},
-): unknown {
-  const { key = "", knownSecrets = [], depth = 0 } = options;
-  if (key && isSensitiveKey(key)) return MASKED_CREDENTIAL;
-  if (depth >= 8) return "[TRUNCATED]";
-  if (Array.isArray(value)) {
-    return value.slice(0, 100).map((item) =>
-      redactValue(item, { knownSecrets, depth: depth + 1 }));
-  }
-  if (value && typeof value === "object") {
-    return Object.fromEntries(Object.entries(value).slice(0, 100).map(([itemKey, item]) => [
-      itemKey,
-      redactValue(item, { key: itemKey, knownSecrets, depth: depth + 1 }),
-    ]));
-  }
-  if (typeof value === "string") return redactText(value, knownSecrets);
-  return value;
 }
