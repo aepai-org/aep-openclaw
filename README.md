@@ -23,8 +23,13 @@ Real Payment Finality. APIs and compatibility guarantees may change.
 ## Install
 
 ```bash
-openclaw plugins install npm:aep-openclaw-plugin
+openclaw plugins install npm:@aepai/openclaw
 ```
+
+For a reproducible Preview deployment, install
+`npm:@aepai/openclaw@0.1.0`. Connector `0.1.0` requires OpenClaw plugin API and
+Gateway `>=2026.7.2-beta.6`. Re-run connection and heartbeat verification after
+each upgrade; compatibility across Preview minor versions is not guaranteed.
 
 ## Connect
 
