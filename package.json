@@ -1,6 +1,6 @@
 {
   "name": "@aepai/openclaw",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "OpenClaw plugin for connecting an existing runtime to AEP",
   "license": "Apache-2.0",
   "author": "AEP AI <opensource@aepai.org> (https://aepai.org)",
